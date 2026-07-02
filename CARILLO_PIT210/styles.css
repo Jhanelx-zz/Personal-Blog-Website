@@ -1,0 +1,251 @@
+:root {
+    --accent: #9eff00; 
+    --bg: #0a0a0b; 
+    --panel: #121214; 
+    --sidebar: #0f0f11;
+    --input-bg: #1c1c1f;
+    --white: #ffffff; 
+    --gray: #dcdcdc; 
+    --muted: #666666; 
+    --border: rgba(255,255,255,0.08);
+    --danger: #ff3d7f;
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--gray); line-height: 1.6; }
+
+/* --- Global Layout --- */
+header {
+    position: sticky; 
+    top: 0;           
+    z-index: 1000;    
+    width: 100%;      
+    background: rgba(10,10,11,0.95); 
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px; 
+    height: 70px;
+    width: 100%;     
+}
+
+.nav-logo { color: var(--white); text-decoration: none; font-size: 24px; font-weight: 700; }
+.nav-logo span { color: var(--accent); }
+.nav-user-info, .nav-right { display: flex; align-items: center; gap: 20px; }
+
+/* --- Avatar & Greeting --- */
+.user-avatar-circle {
+    width: 35px;
+    height: 35px;
+    background-color: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.welcome-text {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* --- Indicator / Toast Pop-up Styles --- */
+#toast {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    padding: 16px 28px;
+    border-radius: 12px;
+    color: #000;
+    font-weight: 700;
+    z-index: 9999;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    animation: toastSlideIn 0.5s ease, toastFadeOut 0.5s ease 3.5s forwards;
+}
+
+.toast-success { background: var(--accent); }
+.toast-danger { background: var(--danger); color: #fff; }
+
+@keyframes toastSlideIn {
+    from { transform: translateX(120%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes toastFadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+
+/* --- Reusable Components --- */
+.card { 
+    background: var(--panel); 
+    border: 1px solid var(--border); 
+    border-radius: 20px; 
+    padding: 30px; 
+    box-shadow: var(--shadow); 
+}
+
+.btn { 
+    padding: 12px 24px; 
+    border-radius: 12px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    border: none; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.btn-primary { background: var(--accent); color: #000; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(158, 255, 0, 0.3); }
+
+.btn-outline-pill, .logout-pill { 
+    padding: 8px 20px; 
+    border: 1px solid var(--border); 
+    color: var(--white); 
+    border-radius: 50px; 
+    text-decoration: none; 
+    font-size: 13px; 
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-outline-pill:hover, .btn-outline-pill.active, .logout-pill:hover { 
+    background: var(--accent); 
+    color: #000; 
+    border-color: var(--accent); 
+}
+
+/* --- Feed & Posts --- */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.blog-post {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    overflow: hidden;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.blog-post:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 35px rgba(158, 255, 0, 0.15);
+}
+
+.media-box { background: #000; overflow: hidden; position: relative; }
+.media-box img, .media-box video { 
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover; 
+    display: block; 
+}
+
+.post-header { padding: 20px 20px 10px; }
+.post-title { font-size: 18px; font-weight: 600; color: var(--white); }
+.post-footer { padding: 10px 20px 20px; border-top: 1px solid var(--border); margin-top: auto; }
+
+/* --- Sidebar Improvements --- */
+.sidebar-sticky-wrapper {
+    position: sticky;
+    top: 90px; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar-title {
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.trending-list { display: flex; flex-direction: column; gap: 15px; }
+.trending-item { text-decoration: none; display: flex; flex-direction: column; }
+
+.trend-tag { 
+    color: var(--white); 
+    font-size: 14px; 
+    font-weight: 500; 
+    transition: 0.3s ease; 
+}
+
+.trend-stats { color: var(--muted); font-size: 11px; margin-top: 4px; }
+
+.trending-item:hover .trend-tag {
+    color: var(--accent);
+    transform: translateX(5px);
+}
+
+.rules-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.rules-list li {
+    font-size: 13px;
+    color: var(--gray);
+    position: relative;
+    padding-left: 18px;
+}
+
+.rules-list li::before {
+    content: "•";
+    color: var(--accent);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* --- Misc & Favorites --- */
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.favorite-btn:hover { 
+    background: var(--danger); 
+    border-color: var(--danger); 
+    transform: scale(1.1); 
+}
+
+.favorite-btn.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+}
+
+.view-btn { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; transition: 0.3s; }
+.blog-post:hover .view-btn { transform: translateX(5px); }
